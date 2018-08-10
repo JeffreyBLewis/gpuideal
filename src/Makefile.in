@@ -18,7 +18,7 @@ EXTRA_CPPFLAGS = @EXTRA_CPPFLAGS@
 
 EXTRA_LDFLAGS = @EXTRA_LDFLAGS@ 
 
-TARGETS = gpuideal.so
+TARGETS = idealcu.so
 
 all: $(TARGETS) 
 
