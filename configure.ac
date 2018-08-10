@@ -126,7 +126,7 @@ esac
 EXTRA_LDFLAGS="${RPATH} ${DARWIN_LDFLAGS} ${EXTRA_LDFLAGS}"
 
 if test "x$CUDA_LIB" = "x"; then
-  EXTRA_LIBS="${EXTRA_LIBS} -lcublas -lnvrtc -lcuda "
+  EXTRA_LIBS="${EXTRA_LIBS} -lcuda "
 fi
 
 AC_SUBST(NVCC)
