@@ -3,4 +3,19 @@
 
 Requires CUDA support to estimate [Clinton, Jackman, and River's (2004)](https://www.cs.princeton.edu/courses/archive/fall09/cos597A/papers/ClintonJackmanRivers2004.pdf) IDEAL model.  
 
-Currently requires the user to edit `src/Makefile` to locate CUDA resources in order to install.  
+To install the package, you must first install Nvidia's CUDA Toolkit available from
+
+http://developer.nvidia.com/cuda-downloads
+
+Install with 
+
+```{r}
+> devtools::install_github("jeffreyblewis/gpuideal")
+```
+
+Fit to simulated data:
+
+```{r}
+> library(gpuideal)
+> test_ideal(nrc=2000, nmem=100, samples=50000, thin=10)
+```
