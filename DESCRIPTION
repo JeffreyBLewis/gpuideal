@@ -1,0 +1,13 @@
+Package: gpuideal
+Title: Parallel IRT estimation using NVIDIA GPUs
+Version: 0.1
+Author: "Jeffrey B. Lewis <jblewis@ucla.edu> [aut, cre], Chris Tausanovitch <ctausanovitch@ucla.edu> [aut, cre]"
+Maintainer: Jeffrey B. Lewis <jblewis@ucla.edu>
+Description: MCMC of the Bayesian Normal Quadratic IRT model on NVIDIA GPUs.
+Depends: R (>= 3.0.2)
+License: MIT
+LazyData: true
+RoxygenNote: 6.0.1
+Imports: pscl, coda
+NeedsCompilation: yes
+Packaged: 2018-06-23 22:23:04 UTC; ec2-user
