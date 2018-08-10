@@ -1,0 +1,8 @@
+gpuideal changes
+=================
+
+changes in gputools 0.1
+- Initial experimental release.  Still working on autotools to finding
+  CUDA resources. 
+
+
