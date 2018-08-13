@@ -6,7 +6,7 @@ CPICFLAGS = @CPICFLAGS@
 RPATH = @RPATH@
 
 #compiler/preprocessor options
-EXTRA_INCLUDES = @EXTRA_INCLUDES@ -I./Random123-1.08/include
+EXTRA_INCLUDES = @EXTRA_INCLUDES@ -I./Random123-1.09/include
 
 EXTRA_LIBS = @EXTRA_LIBS@
 
