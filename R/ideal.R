@@ -29,7 +29,7 @@ rc_recode <- function(dat,codes) {
 #' each iteration.
 #' 
 #' @param mcmcres MCMC object containing draws from IRT model
-#' @param dir  A vector that should be positively correlated with the xs- this sets the direction
+#' @param dir  A vector that should be positively correlated with the xs -- this sets the direction
 #'
 #' @return rescaled MCMC object
 #' @export
