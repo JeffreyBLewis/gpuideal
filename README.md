@@ -27,7 +27,6 @@ Fit all rollcalls from the 114th US Senate:
 > library(coda)
 > library(pscl)
 > rcdat <- readKH("https://voteview.com/static/data/out/votes/S114_votes.ord")
-
 > res <- gpuideal(rcdat, samples=5000, burnin=5000, thin=5,
                   abprior=matrix(c(25,0,0,25),2,2),
                   x = ifelse(rcdat$legis.data$party=="D",-0.5, 0.5))
