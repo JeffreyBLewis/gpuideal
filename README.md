@@ -64,12 +64,19 @@ Here is a step-by-step guide to getting `gpuideal` running on an AWS EC2.
     this will show you the ip address for the instance that you have created
 
 11. On a Mac or Linux machine, the server can be accessed through the terminal as follows:
-```> ssh -i [PATH TO YOUR PRIVATE KEY] [USERNAME]@[IP ADDRESS]```
-    username varies by platform. For an Amazon Linux instance it is ec2-user.
+
+```
+> ssh -i [PATH TO YOUR PRIVATE KEY] [USERNAME]@[IP ADDRESS]
+```
+
+   username varies by platform. For an Amazon Linux instance it is ec2-user.
     for more info on accessing linux instances, see: 
     https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html
     (you may need to change the permissions on your private key. In mac/linux:
-```chmod 400 [PATH TO YOUR PRIVATE KEY]```
+
+```
+chmod 400 [PATH TO YOUR PRIVATE KEY]
+```
     
 11. install R using:
 ```
