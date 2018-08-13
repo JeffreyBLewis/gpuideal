@@ -8,12 +8,8 @@ http://developer.nvidia.com/cuda-downloads
 
 =========
 
-Installation
+Install via `devtools::install_github`:
 
-
-We are still get autotools working to allow direct/automated installation in R. For now you will have to edit the src/Makefile to guide R to the necessary CUDA resources.  Example Makefiles are given.  
-
-One the Makefile has been edited, you can install the package from the command line  with 
-
-> R CMD INSTALL gpuideal
-
+```{r}
+> install_github("jeffreyblewis/gpuideal")
+```
