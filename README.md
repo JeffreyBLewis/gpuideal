@@ -20,7 +20,7 @@ Fit to simulated data:
 > test_ideal(nrc=200, nmem=100, samples=50000, thin=10)
 ```
 
-Fit all rollcalls from 114th US Senate:
+Fit all rollcalls from the 114th US Senate:
 
 ```{r}
 > library(gpuideal)
@@ -35,4 +35,10 @@ Fit all rollcalls from 114th US Senate:
 > rr <- rescaleIdeal(res, scale_dir)  
 > summary(rr)[[1]][1:length(scale_dir),] 
 ```
+
+### Using with Amazon Web Services EC2
+
+This package requires NVIDIA GPU support and NVIDIA's CUDA framework.  One way to access this is through an Amazon Web Services EC2.   A `Deep Learning AMI` on a `p2.xlarge` instance, provides a powerful NVIDIA GPU and CUDA support.  We have tested extensively on this setup.  Install `R` (and `Rstudio`) and you are under way!
+
+
 
