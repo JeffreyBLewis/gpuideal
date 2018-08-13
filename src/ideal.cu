@@ -1,7 +1,7 @@
 #include <R.h>
 #include <sys/time.h>
 
-#include "Random123-1.08/include/Random123/philox.h"
+#include "Random123-1.09/include/Random123/philox.h"
 #include "boxmuller.hpp"
 #include "util_cuda.h"	// for cuda_init, CHECKCALL
 
@@ -366,8 +366,8 @@ extern "C" void ideal(float *x, float *a, float *b, float *iabprior, float *ixpr
 
   for (i=1;i<ssamples;i++) {
     if (i % (ssamples/50) == 0) {
-      if (i<bburnin) Rprintf("^"); //Show heartbeat...
-      else Rprintf("*");
+      if (i<bburnin) Rprintf("b"); //Show heartbeat...
+      else Rprintf("s");
     }
     
     // Update a's and b's
