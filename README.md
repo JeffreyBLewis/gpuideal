@@ -37,7 +37,7 @@ Fit all rollcalls from the 114th US Senate:
 
 ### Using with Amazon Web Services EC2
 
-This package requires NVIDIA GPU support and NVIDIA's CUDA framework.  One way to access this is through an Amazon Web Services EC2.   A `Deep Learning AMI` on a `p2.xlarge` instance provides a powerful NVIDIA GPU and CUDA support.  We have tested extensively on this setup.  Install `R` (and `Rstudio` if you want) and you are under way!
+This package requires NVIDIA GPU support and NVIDIA's CUDA framework.  One way to access this is through an Amazon Web Services' EC2.   A `Deep Learning AMI` on a `p2.xlarge` instance provides a powerful NVIDIA GPU and CUDA support.  We have tested extensively on this setup.  Install `R` (and `Rstudio` if you want) and you are under way!
 
 Here is a step-by-step guide to getting `gpuideal` running on an AWS EC2. 
 
