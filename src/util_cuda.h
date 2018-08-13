@@ -33,7 +33,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define UTIL_CUDA_H__
 
 #include "util.h"
-
 #include <cuda.h>
 #include <cuda_runtime_api.h>
 
@@ -74,9 +73,13 @@ static CUDAInfo *cuda_init(const char *devstr)
 	} else if (cu.major == 3 && (cu.minor == 0||cu.minor==5)) {
 	    // 3.0 (Kepler GK104 aka GTX 680)
 	    cores *= 192;
+	} else if (cu.major == 3 && (cu.minor == 7)) {
+	    // 3.7 (Telsa K90)
+	    cores *= 192;
 	} else {
 	    fprintf(stderr, "Unknown # of cores per MP for this device, assuming 1, so cpb will be wrong\n");
 	}
+
 	/* clockrate is in KHz */
 	cycles = 1e3 * cu.clockRate * cores;
 	//printf("  %d: maj %d min %d %s%s ( %d units @ %g MHz ECC=%d %d cores %g Gcycles/s)\n",
