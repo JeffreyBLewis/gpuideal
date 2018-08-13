@@ -8,8 +8,7 @@ http://developer.nvidia.com/cuda-downloads
 
 =========
 
-Install via `devtools::install_github`:
+Install with from R with
 
-```{r}
-> install_github("jeffreyblewis/gpuideal")
-```
+> devtools::install_github("jeffreyblewis/gpuideal")
+
