@@ -7,7 +7,7 @@ This package only supports NVIDIA GPUs. To install the package, you must first i
 
 http://developer.nvidia.com/cuda-downloads
 
-Install with 
+Install `gpuideal` with 
 
 ```{r}
 > devtools::install_github("jeffreyblewis/gpuideal")
