@@ -103,8 +103,7 @@ sudo R
 ```
 
 15. Quit `R` (`ctrl-D`) and run R as a regular user: `R`.
-    test your installation by running the examples:
-    https://github.com/JeffreyBLewis/gpuideal/blob/master/README.md
+    test your installation by running the examples above.
     
 17. To copy your data to your EC2 instance from a mac/linux machine you can use:
 ```
