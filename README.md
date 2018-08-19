@@ -3,6 +3,8 @@
 
 Requires CUDA support to estimate [Clinton, Jackman, and River's (2004)](https://www.cs.princeton.edu/courses/archive/fall09/cos597A/papers/ClintonJackmanRivers2004.pdf) IDEAL model.  
 
+For more information about gpuideal and what it does, see the white paper: http://www.ctausanovitch.com/gpuideal.pdf
+
 This package only supports NVIDIA GPUs. To install the package, you must first install Nvidia's CUDA Toolkit available from
 
 http://developer.nvidia.com/cuda-downloads
