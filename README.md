@@ -43,6 +43,39 @@ Fit all rollcalls from the 114th US Senate:
 > summary(rr)[[1]][1:length(scale_dir),] 
 ```
 
+Fit simulated data using EM estimation algorithm
+
+```{r}
+library(tidyverse)
+rc <- 65
+mem <- 5000
+
+dat <- simrc(nrc=rc, nmem=mem)
+dat$votes[matrix(runif(rc*mem)>0.6, rc, mem)] <- 0  # Add some abstentions !
+
+em_res <- gpu_em_ideal(dat, steps=10000, thin=100,
+                       xprior=1,
+                       abprior=matrix(c(25,0,0,25),2,2),
+                       x = rnorm(length(dat$x)),
+                       blocks=256)
+```
+
+Estimate Two-dimensional ideal point model via EM:
+
+```{r}
+library(gpuideal)
+rc <- 5000
+mem <- 200
+
+dat <- simrc2d(nrc=rc, nmem=mem)
+dat$votes[matrix(runif(rc*mem)>0.6, rc, mem)] <- 0
+
+em_res <- gpu_em_ideal2d(dat, steps=500, thin=1,
+                xprior=1,
+                abprior=diag(rep(25,3)),
+		blocks=256)
+```
+
 ## Using with Amazon Web Services EC2
 
 This package requires NVIDIA GPU support and NVIDIA's CUDA framework.  One way to access this is through an Amazon Web Services' EC2.   A `Deep Learning AMI` on a `p2.xlarge` instance provides a powerful NVIDIA GPU and CUDA support.  We have tested extensively on this setup.  Install `R` (and `Rstudio` if you want) and you are under way!
