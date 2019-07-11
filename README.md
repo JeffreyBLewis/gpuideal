@@ -2,7 +2,7 @@
 ## R package implementing MCMC estimation of the two-parameter IRT model on NVIDIA GPUs
 
 ## News
-We pushed a new version of the code on July 11, 2019. We think all of the instructions below are still good, but we have not recently tried to deploy on EC2.  Please let me know if you run into trouble.  **While this code has been tested extensively, this package remains dexperimental**.
+We pushed a new version of the code on July 11, 2019. We think all of the instructions below are still good, but we have not recently tried to deploy on EC2.  Please let me know if you run into trouble.  **While this code has been tested extensively, this package remains experimental**.
 
 ## Install
 Requires CUDA support to estimate [Clinton, Jackman, and River's (2004)](https://www.cs.princeton.edu/courses/archive/fall09/cos597A/papers/ClintonJackmanRivers2004.pdf) IDEAL model.  
