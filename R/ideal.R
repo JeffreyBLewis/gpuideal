@@ -40,7 +40,7 @@ rescaleIdeal <- function(mcmcres,dir) {
      for (v in c("x","b","a")) idx[[v]] <- grep(v,names(mcmcres[1,]))
      meansd <- t(apply(mcmcres[,idx[['x']]],1,function(x) c(mean(x),sd(x),sign(cor(x,dir)))))
      mcmcres[,idx[['x']]] <- apply(mcmcres[,idx[['x']]],2, function(x) (x-meansd[,1])/meansd[,2])*meansd[,3]  
-     mcmcres[,idx[['a']]] <- mcmcres[,idx[['a']]] + apply(mcmcres[,idx[['b']]],2, function(b) b*meansd[,1])     
+     mcmcres[,idx[['a']]] <- mcmcres[,idx[['a']]] + apply(mcmcres[,idx[['b']]],2, function(b) b*meansd[,1])
      mcmcres[,idx[['b']]] <- apply(mcmcres[,idx[['b']]],2, function(b) b*meansd[,2]*meansd[,3])
      mcmcres
 }
