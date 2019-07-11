@@ -1,6 +1,10 @@
 # gpuideal
 ## R package implementing MCMC estimation of the two-parameter IRT model on NVIDIA GPUs
 
+## News
+We pushed a new version of the code on July 11, 2019. We think all of the instructions below are still good, but we have not recently tried to deploy on EC2.  Please let me know if you run into trouble.
+
+## Install
 Requires CUDA support to estimate [Clinton, Jackman, and River's (2004)](https://www.cs.princeton.edu/courses/archive/fall09/cos597A/papers/ClintonJackmanRivers2004.pdf) IDEAL model.  
 
 For more information about `gpuideal` and what it does, see the white paper: http://www.ctausanovitch.com/gpuideal.pdf
@@ -14,6 +18,8 @@ Install `gpuideal` with
 ```{r}
 > devtools::install_github("jeffreyblewis/gpuideal")
 ```
+
+## Use
 
 Fit to simulated data:
 
@@ -29,7 +35,7 @@ Fit all rollcalls from the 114th US Senate:
 > library(coda)
 > library(pscl)
 > rcdat <- readKH("https://voteview.com/static/data/out/votes/S114_votes.ord")
-> res <- gpuideal(rcdat, samples=5000, burnin=5000, thin=5,
+> res <- gpu_ideal(rcdat, samples=5000, burnin=5000, thin=5,
                   abprior=matrix(c(25,0,0,25),2,2),
                   x = ifelse(rcdat$legis.data$party=="D",-0.5, 0.5))
 > scale_dir <- as.integer(rcdat$legis.data$party=="R") 
@@ -37,7 +43,7 @@ Fit all rollcalls from the 114th US Senate:
 > summary(rr)[[1]][1:length(scale_dir),] 
 ```
 
-### Using with Amazon Web Services EC2
+## Using with Amazon Web Services EC2
 
 This package requires NVIDIA GPU support and NVIDIA's CUDA framework.  One way to access this is through an Amazon Web Services' EC2.   A `Deep Learning AMI` on a `p2.xlarge` instance provides a powerful NVIDIA GPU and CUDA support.  We have tested extensively on this setup.  Install `R` (and `Rstudio` if you want) and you are under way!
 
