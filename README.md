@@ -60,7 +60,7 @@ em_res <- gpu_em_ideal(dat, steps=10000, thin=100,
                        blocks=256)
 ```
 
-Estimate Two-dimensional ideal point model via EM:
+Estimate two-dimensional ideal point model via EM:
 
 ```{r}
 library(gpuideal)
