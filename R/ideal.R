@@ -1,6 +1,3 @@
-#dyn.load('../src/idealcu.so')
-library(pscl)
-
 #' Recode votes and delete non-votes
 #'
 #' @param dat roll call object dataset
@@ -45,10 +42,11 @@ rescaleIdeal <- function(mcmcres,dir) {
      mcmcres
 }
 
-#' Run the gpuideal sampler
+#' Run the gpu_ideal sampler
 #'
-#' Run the gpuideal sampler
+#' Run the gpu ideal sampler
 #' @param rcdata Roll call object
+#' @param columnwise Logical flag for column-wise roll call data
 #' @param samples Number of MCMC samples (after burnin)
 #' @param burnin Number of burn in samples
 #' @param thin Keep every `thin` sample
@@ -65,21 +63,23 @@ rescaleIdeal <- function(mcmcres,dir) {
 #' @useDynLib idealcu
 #'
 #' @examples
-gpuideal <- function(rcdata,samples,burnin=0,thin=1,x=NULL,abprior=matrix(c(20,0,0,20),2,2),xprior=1,
+gpu_ideal <- function(rcdata,columnwise=F,samples,burnin=0,thin=1,x=NULL,abprior=matrix(c(20,0,0,20),2,2),xprior=1,
 	             blocks=0, threads=0) {
     # Format the the roll call data
-    nmem <- dim(rcdata$votes)[1]
-    nrc <- dim(rcdata$votes)[2] 
-    cat("Starting GPU-based ideal estimator...\n\n")
-    cat("Data summary...\n");
-    cat(sprintf("Number of members:   %i\n", nmem))
-    cat(sprintf("Number of rollcalls: %i\n", nrc))
-
-    # Set up column-wise (rollcall-wise data set)
-    cw <- rc_recode( data.frame( y = as.vector(rcdata$votes),
-       	                         rcidx = rep(1:nrc,each=nmem),
-		                 memidx = rep(1:nmem,nrc) ),
-                     rcdata$codes )
+    if (! columnwise){
+        nmem <- dim(rcdata$votes)[1]
+        nrc <- dim(rcdata$votes)[2] 
+        # Set up column-wise (rollcall-wise data set)
+        cw <- rc_recode( data.frame( y = as.vector(rcdata$votes),
+                                     rcidx = rep(1:nrc,each=nmem),
+                                     memidx = rep(1:nmem,nrc) ),
+                         rcdata$codes )
+    }
+    if (columnwise){
+        cw <- rcdata
+        nmem <- length(unique(cw$memidx))
+        nrc <- length(unique(cw$rcidx))
+    }
     n  <- dim(cw)[1]
     rcstart <- tapply(1:n,cw$rcidx,min) 
     rclen <- as.vector(table(cw$rcidx))
@@ -101,17 +101,21 @@ gpuideal <- function(rcdata,samples,burnin=0,thin=1,x=NULL,abprior=matrix(c(20,0
        xx[1:nmem] <- x
     }
 
+    cat("Starting GPU-based ideal estimator...\n\n")
+    cat("Data summary...\n");
+    cat(sprintf("Number of members:   %i\n", nmem))
+    cat(sprintf("Number of rollcalls: %i\n", nrc))
     cat(sprintf("Number of choices:   %i\n", dim(rw)[1])) 
-
+    
     # Run the MCMC chain
     timing <- system.time(
-    res <- .C("ideal",
+    res <- .C("gibbs_ideal",
 			# parameters coming back
 			x=as.single(xx),
 			a=single(samples*nrc/thin),
 			b=single(samples*nrc/thin),
 			
-			# Inverse of priors
+			# Priors
 			iabprior = as.single(solve(abprior)),
 			ixprior = as.single(1/xprior),
 
