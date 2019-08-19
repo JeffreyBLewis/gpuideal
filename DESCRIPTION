@@ -3,7 +3,7 @@ Title: Parallel IRT estimation using NVIDIA GPUs
 Version: 0.2
 Author: "Jeffrey B. Lewis <jblewis@ucla.edu> [aut, cre], Chris Tausanovitch <ctausanovitch@ucla.edu> [aut, cre]"
 Maintainer: Jeffrey B. Lewis <jblewis@ucla.edu>
-Description: MCMC of the Bayesian Normal Quadratic IRT model on NVIDIA GPUs.
+Description: EM and MCMC estimation of the Bayesian Quadratic Normal IRT model on NVIDIA GPUs.
 Depends: R (>= 3.0.2)
 License: MIT
 LazyData: true
