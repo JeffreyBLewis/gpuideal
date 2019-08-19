@@ -2,7 +2,7 @@
 ## R package implementing MCMC estimation of the two-parameter IRT model on NVIDIA GPUs
 
 ## News
-We pushed a new version of the code on July 11, 2019. We think all of the instructions below are still good, but we have not recently tried to deploy on EC2.  Please let me know if you run into trouble.  **While this code has been tested extensively, this package remains experimental**.
+We pushed a new version of the code on July 11, 2019. I have confirmed the EC2 install and run instructions below function as of August 19, 2019.  Please let me know if you run into trouble.  Several users have asked about installing this package under Windows.  At the moment, installing under windows will require you to build the CUDA source for the shared library manually or writing your own Makefile or configure script. If you write a build script for Windows please make a pull request.  **While this code has been tested extensively, this package remains experimental**.
 
 ## Install
 Requires CUDA support to estimate [Clinton, Jackman, and River's (2004)](https://www.cs.princeton.edu/courses/archive/fall09/cos597A/papers/ClintonJackmanRivers2004.pdf) IDEAL model.  
@@ -46,14 +46,12 @@ Fit all rollcalls from the 114th US Senate:
 Fit simulated data using EM estimation algorithm
 
 ```{r}
-library(tidyverse)
-rc <- 65
-mem <- 5000
-
-dat <- simrc(nrc=rc, nmem=mem)
-dat$votes[matrix(runif(rc*mem)>0.6, rc, mem)] <- 0  # Add some abstentions !
-
-em_res <- gpu_em_ideal(dat, steps=10000, thin=100,
+> library(tidyverse)
+> rc <- 65
+> mem <- 5000
+> dat <- simrc(nrc=rc, nmem=mem)
+> dat$votes[matrix(runif(rc*mem)>0.6, rc, mem)] <- 0  # Add some abstentions !
+> em_res <- gpu_em_ideal(dat, steps=10000, thin=100,
                        xprior=1,
                        abprior=matrix(c(25,0,0,25),2,2),
                        x = rnorm(length(dat$x)),
@@ -63,14 +61,12 @@ em_res <- gpu_em_ideal(dat, steps=10000, thin=100,
 Estimate two-dimensional ideal point model via EM:
 
 ```{r}
-library(gpuideal)
-rc <- 5000
-mem <- 200
-
-dat <- simrc2d(nrc=rc, nmem=mem)
-dat$votes[matrix(runif(rc*mem)>0.6, rc, mem)] <- 0
-
-em_res <- gpu_em_ideal2d(dat, steps=500, thin=1,
+> library(gpuideal)
+> rc <- 5000
+> mem <- 200
+> dat <- simrc2d(nrc=rc, nmem=mem)
+> dat$votes[matrix(runif(rc*mem)>0.6, rc, mem)] <- 0
+> em_res <- gpu_em_ideal2d(dat, steps=500, thin=1,
                 xprior=1,
                 abprior=diag(rep(25,3)),
 		blocks=256)
