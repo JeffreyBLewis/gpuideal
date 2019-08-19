@@ -41,13 +41,13 @@ simrc2d <- function(nrc=100, nmem=100) {
       	   codes=list('yea'=c(1),'nay'=c(-1)))
 }
 
-#' Run a test of the gpuideal point routine
+#' Run a test of the gpu_ideal point routine
 #' 
 #' Run a test of the CUDA gpu-based ideal point routine using simulated data.
 #'
 #' @param nrc Number of roll calls
 #' @param nmem Number of legislators
-#' @param ... Additional arguments to `gpuideal`
+#' @param ... Additional arguments to `gpu_ideal`
 #'
 #' @return MCMC object containing posterior draws
 #' @export 
@@ -59,7 +59,7 @@ test_ideal <- function(nrc=100,nmem=100,...) {
        for (i in 1:5) {
           print( lm(dat$votes[,i]~dat$x) )
        }
-       res <- gpuideal(dat,...)
+       res <- gpu_ideal(dat,...)
        rr <- rescaleIdeal(res,dat$x) 
        rrr <- summary(rr)
        print(coda::effectiveSize(rr)) 
