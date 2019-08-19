@@ -32,6 +32,7 @@ gpu_em_ideal <- function(rcdata,steps,burnin=0,thin=1,x=NULL,abprior=matrix(c(20
        	                         rcidx = rep(1:nrc,each=nmem),
 		                 memidx = rep(1:nmem,nrc) ),
                      rcdata$codes )
+    check_rollcall_data(cw) # Sanity check the data.
     n  <- dim(cw)[1]
     rcstart <- tapply(1:n,cw$rcidx,min) 
     rclen <- as.vector(table(cw$rcidx))

@@ -15,6 +15,41 @@ rc_recode <- function(dat,codes) {
     dat[!is.na(dat$y),]
 }
 
+# Concatenate a vector in a nicely readable way
+collapse_with_and <- function(x) {
+  n <- length(x)
+  if (n > 1) {
+    last <- as.character(x[n])
+    others <- as.character(x[1:(n-1)])
+    return(paste("s", 
+                 paste0(others, collapse=", "),
+                 "and", last, 
+                 "have"))
+  }
+  else {
+    return(as.character(paste("", as.character(x), "has")))
+  }
+}
+
+# Checks to be sure that the roll call data in CW form includes at least one valid vote on every
+# roll call and by every member.  Returns an error if not.
+check_rollcall_data <- function(cw) {
+   # Look for members who never vote.
+   missing_members <- setdiff(1:max(cw$memidx), unique(cw$memidx))
+   if (length(missing_members)>0) 
+     stop(sprintf("Member number%s cast no votes!  Remove %s from the data before fitting the model.\n",
+                  collapse_with_and(missing_members),
+                  ifelse(length(missing_members)>1, "them", "her/him")))
+   
+   # Look for rollcalls for which no valid votes were cast
+   missing_rollcalls <- setdiff(1:max(cw$rcidx), unique(cw$rcidx))
+   if (length(missing_rollcalls)>0) 
+        stop(sprintf("Rollcall number%s no valid votes!  Remove %s from the data before fitting the model.\n",
+                     collapse_with_and(missing_rollcalls),
+                     ifelse(length(missing_rollcalls)>1, "them", "it")))
+                 
+}
+
 #
 #  Rescale posterior draws so that the ideal pt distributons have mean 0 and std dev 1 in 
 #  each iteration.
@@ -63,10 +98,10 @@ rescaleIdeal <- function(mcmcres,dir) {
 #' @useDynLib idealcu
 #'
 #' @examples
-gpu_ideal <- function(rcdata,columnwise=F,samples,burnin=0,thin=1,x=NULL,abprior=matrix(c(20,0,0,20),2,2),xprior=1,
-	             blocks=0, threads=0) {
+gpu_ideal <- function(rcdata, columnwise=F, samples, burnin=0, thin=1, x=NULL,
+                      abprior=matrix(c(20,0,0,20),2,2), xprior=1, blocks=0, threads=0) {
     # Format the the roll call data
-    if (! columnwise){
+    if (!columnwise){
         nmem <- dim(rcdata$votes)[1]
         nrc <- dim(rcdata$votes)[2] 
         # Set up column-wise (rollcall-wise data set)
@@ -80,6 +115,7 @@ gpu_ideal <- function(rcdata,columnwise=F,samples,burnin=0,thin=1,x=NULL,abprior
         nmem <- length(unique(cw$memidx))
         nrc <- length(unique(cw$rcidx))
     }
+    check_rollcall_data(cw) # Sanity check the data.
     n  <- dim(cw)[1]
     rcstart <- tapply(1:n,cw$rcidx,min) 
     rclen <- as.vector(table(cw$rcidx))
