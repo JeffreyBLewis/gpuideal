@@ -121,7 +121,8 @@ chmod 400 [PATH TO YOUR PRIVATE KEY]
     
 11. install R using:
 ```
-> yum install -y R
+> sudo yum install -y R
+> sudo yum install libxml2-dev
 ```
 from the EC2 command prompt.
     
