@@ -859,7 +859,7 @@ __device__ static inline void solve2d(float *bbv, float *iXpx, float *xpx, float
   iXpx[3] = xpx[0]/denom;
 };
 
-#endif;
+#endif
 
 //
 // Bayesian linear regression with three parameters (for estimating bill parameters)
