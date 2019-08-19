@@ -4,10 +4,12 @@
 \alias{rescaleIdeal}
 \title{Rescale posterior draws}
 \usage{
-rescaleIdeal(mcmcres)
+rescaleIdeal(mcmcres, dir)
 }
 \arguments{
 \item{mcmcres}{MCMC object containing draws from IRT model}
+
+\item{dir}{A vector that should be positively correlated with the xs -- this sets the direction}
 }
 \value{
 rescaled MCMC object
